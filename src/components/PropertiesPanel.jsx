@@ -29,7 +29,8 @@ export const PropertiesPanel = ({ nodeLabel, setNodeLabel, setNodes, selectedNod
             setNodes((nds) =>
                 nds.map(node => {
                     if (node.id === selectedNode.id) {
-                        node.style = { ...node.style, backgroundColor: nodeBg, color: 'rgb(255, 255, 255)' }
+                        node.style = { ...node.style, backgroundColor: nodeBg,
+                            color: 'rgb(255, 255, 255)' }
                     }
 
                     return node
@@ -61,7 +62,7 @@ export const PropertiesPanel = ({ nodeLabel, setNodeLabel, setNodes, selectedNod
             <label className='properties-label'>Label:</label>
             <input disabled={nodeLabel === '' && nodeBg === ''} value={nodeLabel}
                    onChange={(evt) => {
-                       if(evt.target.value.match('[A-Za-z0-9 ]+')) {
+                       if(evt.target.value.match('[A-Za-z0-9: ]+')) {
                            setNodeLabel(evt.target.value)
                        } else {
                            setNodeLabel(nodeLabel)

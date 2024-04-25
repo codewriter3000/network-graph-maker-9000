@@ -43,7 +43,7 @@ const App = () => {
   const onNodeClick = (event) => {
       event.preventDefault()
 
-      const regex = '</div>([A-Za-z0-9 ]+)<div'
+      const regex = '</div>([A-Za-z0-9: ]+)<div'
       const label = event.target.innerHTML.match(regex)?.[1] || ''
 
       setSelectedNode({
