@@ -6,15 +6,15 @@ export const InsertNodePanel = ({ onDragStart, nodes, edges, setNodes, setEdges 
     return (
         <aside>
             <div className='description'>Controls</div>
-            <div className='dndnode' onDragStart={(event) => onDragStart(event, 'default')} draggable>
+            <div className='action_button' onDragStart={(event) => onDragStart(event, 'default')} draggable>
                 Insert Node
             </div>
-            <div className='dndnode' onClick={() => {
+            <div className='action_button' onClick={() => {
                 downloadFile('network-graph-save', `{"nodes": ${JSON.stringify(nodes)}, "edges": ${JSON.stringify(edges)}}`)
             }}>
                 Download
             </div>
-            <input type='file' className='dndnode'
+            <input type='file' className='action_button'
                    onChange={async(event) => {
                        const uploadedFile = await uploadFile(event)
                        const saveFileText = JSON.parse(uploadedFile)
@@ -22,7 +22,7 @@ export const InsertNodePanel = ({ onDragStart, nodes, edges, setNodes, setEdges 
                        setEdges(saveFileText.edges)
                    }}
             />
-            <div className='dndnode input' onClick={() => console.log(nodes)}>
+            <div className='action_button debug' onClick={() => console.log(nodes)}>
                 Debug Nodes
             </div>
         </aside>

@@ -14,25 +14,25 @@
     margin-top: 10px;
 }
 
-.dndflow {
+.reactflow-wrapper {
     flex-direction: row;
     display: flex;
     flex-grow: 1;
     height: 100%;
 }
 
-.dndflow aside {
+.reactflow-wrapper aside {
     position: absolute;
     padding: 15px 10px;
     font-size: 12px;
     z-index: 4;
 }
 
-.dndflow aside .description {
+.reactflow-wrapper aside .description {
     margin-bottom: 10px;
 }
 
-.dndflow .dndnode {
+.reactflow-wrapper .action_button {
     height: 20px;
     padding: 4px;
     border: 1px solid #eee;
@@ -44,29 +44,29 @@
     cursor: grab;
 }
 
-.dndflow .dndnode.input {
+.reactflow-wrapper .action_button.debug {
     border-color: #0041d0;
 }
 
-.dndflow .dndnode.output {
+.reactflow-wrapper .action_button.delete {
     border-color: #ff0072;
 }
 
-.dndflow .reactflow-wrapper {
-    flex-grow: 1;
-    height: 100%;
-}
+/*.reactflow-wrapper {*/
+/*    flex-grow: 1;*/
+/*    height: 100%;*/
+/*}*/
 
-.dndflow .selectall {
+.reactflow-wrapper .selectall {
     margin-top: 10px;
 }
 
 @media screen and (min-width: 768px) {
-    .dndflow {
+    .reactflow-wrapper {
         flex-direction: row;
     }
 
-    .dndflow aside {
+    .reactflow-wrapper aside {
         width: 20%;
         max-width: 250px;
     }

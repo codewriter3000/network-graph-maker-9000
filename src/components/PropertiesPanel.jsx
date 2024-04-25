@@ -80,7 +80,7 @@ export const PropertiesPanel = ({ nodeLabel, setNodeLabel, setNodes, selectedNod
                    }}
             />
 
-            <div className='properties_label dndnode output' onClick={onNodeDelete}>
+            <div className='properties-label action_button delete' onClick={onNodeDelete}>
                 Delete Node
             </div>
         </div>

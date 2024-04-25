@@ -6,7 +6,7 @@ import ReactFlow, {
     addEdge,
     ReactFlowProvider,
     Background,
-    MarkerType
+    MarkerType, MiniMap
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
@@ -117,7 +117,7 @@ const App = () => {
     }
 
   return (
-      <div className='dndflow'>
+      <div>
           <ReactFlowProvider>
               <div className='reactflow-wrapper' ref={reactFlowWrapper} style={{ height: '100svh', width: '100svw' }}>
                   <ReactFlow
@@ -154,6 +154,7 @@ const App = () => {
                           edges={edges}
                           setEdges={setEdges}
                       />
+                      <MiniMap />
                       <Background />
                       <Controls />
                   </ReactFlow>
