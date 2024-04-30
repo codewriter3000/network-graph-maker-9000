@@ -4,7 +4,7 @@ import { uploadFile } from '../util/upload.js'
 export const InsertNodePanel = ({ onDragStart, nodes, edges, setNodes, setEdges }) => {
 
     return (
-        <aside>
+        <aside className='absolute left-2.5 top-2.5 z-10 text-sm space-y-3'>
             <div className='description'>Controls</div>
             <div className='action_button' onDragStart={(event) => onDragStart(event, 'default')} draggable>
                 Insert Node

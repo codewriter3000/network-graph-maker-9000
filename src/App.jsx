@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef, useState } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react'
 import ReactFlow, {
     useNodesState,
     useEdgesState,
@@ -7,12 +7,12 @@ import ReactFlow, {
     ReactFlowProvider,
     Background,
     MarkerType, MiniMap
-} from 'reactflow';
-import 'reactflow/dist/style.css';
+} from 'reactflow'
+import 'reactflow/dist/style.css'
+import './index.css'
 
-import './App.css';
-import { PropertiesPanel } from './components/PropertiesPanel.jsx';
-import { InsertNodePanel } from './components/InsertNodePanel.jsx';
+import { PropertiesPanel } from './components/PropertiesPanel.jsx'
+import { InsertNodePanel } from './components/InsertNodePanel.jsx'
 
 const initialNodes = [
   // { id: '1', data: { label: '-' }, position: { x: 100, y: 100 } },
@@ -119,7 +119,9 @@ const App = () => {
   return (
       <div>
           <ReactFlowProvider>
-              <div className='reactflow-wrapper' ref={reactFlowWrapper} style={{ height: '100svh', width: '100svw' }}>
+              <div className='reactflow-wrapper'
+                   ref={reactFlowWrapper}
+                   style={{ height: '100svh', width: '100svw' }}>
                   <ReactFlow
                       nodes={nodes}
                       edges={edges}
@@ -154,7 +156,7 @@ const App = () => {
                           edges={edges}
                           setEdges={setEdges}
                       />
-                      <MiniMap />
+                      <MiniMap className='bg-zinc-800' />
                       <Background />
                       <Controls />
                   </ReactFlow>

@@ -55,35 +55,41 @@ export const PropertiesPanel = ({ nodeLabel, setNodeLabel, setNodes, selectedNod
     }
 
     return (
-        <div className='properties-controls'>
-            <label>ID:</label>
-            <input disabled={true} value={selectedNode.id} />
+        <aside className='absolute right-2.5 top-2.5 z-10 text-sm space-y-3'>
+            <div>
+                <label className='block'>ID:</label>
+                <input disabled={true} value={selectedNode.id}/>
+            </div>
 
-            <label className='properties-label'>Label:</label>
-            <input disabled={nodeLabel === '' && nodeBg === ''} value={nodeLabel}
-                   onChange={(evt) => {
-                       if(evt.target.value.match('[A-Za-z0-9: ]+')) {
-                           setNodeLabel(evt.target.value)
-                       } else {
-                           setNodeLabel(nodeLabel)
-                       }
-                   }}
-            />
+            <div>
+                <label className='block'>Label:</label>
+                <input disabled={nodeLabel === '' && nodeBg === ''} value={nodeLabel}
+                       onChange={(evt) => {
+                           if (evt.target.value.match('[A-Za-z0-9: ]+')) {
+                               setNodeLabel(evt.target.value)
+                           } else {
+                               setNodeLabel(nodeLabel)
+                           }
+                       }}
+                />
+            </div>
 
-            <label className='properties-label'>Background Color:</label>
-            <input disabled={nodeBg === ''} value={nodeBg}
-                   onChange={(evt) => {
-                       if (evt.target.value.match(/^rgb\((\d+), (\d+), (\d+)\)$/)) {
-                           setNodeBg(evt.target.value)
-                       } else {
-                           setNodeBg('rgb(238, 238, 238)')
-                       }
-                   }}
-            />
+            <div>
+                <label className='block'>Background Color:</label>
+                <input disabled={nodeBg === ''} value={nodeBg}
+                       onChange={(evt) => {
+                           if (evt.target.value.match(/^rgb\((\d+), (\d+), (\d+)\)$/)) {
+                               setNodeBg(evt.target.value)
+                           } else {
+                               setNodeBg('rgb(238, 238, 238)')
+                           }
+                       }}
+                />
+            </div>
 
-            <div className='properties-label action_button delete' onClick={onNodeDelete}>
+            <div className='action_button delete' onClick={onNodeDelete}>
                 Delete Node
             </div>
-        </div>
+        </aside>
     )
 }
