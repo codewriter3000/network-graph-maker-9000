@@ -53,6 +53,12 @@ const App = () => {
       })
   }
 
+  const onEdgeClick = (event) => {
+      event.preventDefault()
+
+      console.log(event.target)
+  }
+
     const onDragStart = (event, nodeType) => {
         event.dataTransfer.setData('application/reactflow', nodeType)
         event.dataTransfer.effectAllowed = 'move'
@@ -130,6 +136,7 @@ const App = () => {
                       onNodesChange={onNodesChange}
                       onEdgesChange={onEdgesChange}
                       onNodeClick={onNodeClick}
+                      onEdgeClick={onEdgeClick}
                       onDragStart={onDragStart}
                       onDragOver={onDragOver}
                       onDrop={onDrop}
