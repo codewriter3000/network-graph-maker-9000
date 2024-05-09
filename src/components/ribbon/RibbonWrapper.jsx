@@ -8,8 +8,8 @@ const RibbonWrapper = ({ home, children }) => {
             <div className='space-x-3'>
                 {children.map(child => {
                     return (
-                        <button className={selectedTab === child.props.name ? 'border-b-2 border-blue-500' :
-                            'border-b border-blue-500'} key={child.props.name}
+                        <button className={selectedTab === child.props.name ? 'border-b-2 border-debug' :
+                            'border-b border-debug'} key={child.props.name}
                                 onClick={() => setSelectedTab(child.props.name)}>
                             {child.props.name}
                         </button>

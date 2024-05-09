@@ -1,20 +1,8 @@
-const InsertRibbon = ({ onDragStart, nodes, setNodes, getId, reactFlowInstance }) => {
+const InsertRibbon = ({ onDragStart, nodes, insertNode }) => {
     return (
         <aside className='tab'>
             <div className='action-button'
-                 onClick={() => {
-                     const nodeId = getId()
-                     setNodes(nds => nds.concat({
-                         id: nodeId,
-                         type: 'default',
-                         position: reactFlowInstance.screenToFlowPosition({
-                             x: 300,
-                             y: 300
-                         }),
-                         data: { label: 'Node' },
-                         style: { backgroundColor: '#eee' }
-                     }))
-                 }}
+                 onClick={() => insertNode()}
                  onDragStart={(event) => onDragStart(event, 'default')} draggable>
                 Insert Node
             </div>
