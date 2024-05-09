@@ -87,7 +87,7 @@ export const PropertiesPanel = ({ nodeLabel, setNodeLabel, setNodes, selectedNod
                 />
             </div>
 
-            <div className='action_button delete' onClick={onNodeDelete}>
+            <div className='action-button delete' onClick={onNodeDelete}>
                 Delete Node
             </div>
         </aside>

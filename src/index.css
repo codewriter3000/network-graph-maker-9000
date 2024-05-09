@@ -12,7 +12,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.reactflow-wrapper .action_button {
+.tab {
+  @apply flex flex-row space-x-3;
+}
+
+.absolute-toolbar {
+  @apply absolute left-2.5 top-2.5 z-10 text-sm space-y-3;
+}
+
+.reactflow-wrapper .action-button {
   @apply p-1 border border-solid border-white mb-4 flex justify-center items-center cursor-pointer;
 }
 

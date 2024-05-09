@@ -8,11 +8,15 @@ import ReactFlow, {
     Background,
     MarkerType, MiniMap
 } from 'reactflow'
+import { v4 as uuidv4 } from 'uuid'
+
 import 'reactflow/dist/style.css'
 import './index.css'
 
 import { PropertiesPanel } from './components/PropertiesPanel.jsx'
-import { InsertNodePanel } from './components/InsertNodePanel.jsx'
+import InsertRibbon from './components/InsertRibbon.jsx'
+import HomeRibbon from './components/HomeRibbon.jsx'
+import { Ribbon, RibbonWrapper } from './components/ribbon/index.js'
 
 const initialNodes = [
   // { id: '1', data: { label: '-' }, position: { x: 100, y: 100 } },
@@ -78,9 +82,7 @@ const App = () => {
         setSelectedNode({ id: '', label: '', backgroundColor: '' })
     }
 
-
-    let id = 0;
-    const getId = () => `node_${id++}`
+    const getId = () => uuidv4() //`node_${incrementAndGetId()}`
 
     const onDrop = useCallback(
         (event) => {
@@ -107,8 +109,8 @@ const App = () => {
                 // type,
                 type: 'default',
                 position,
-                data: { label: `Node ${nodeId.slice(-1)}` },
-                style: { backgroundColor: '#eee'},
+                data: { label: 'Node' },
+                style: { backgroundColor: '#eee' },
             }
 
             setNodes((nds) => nds.concat(newNode))
@@ -126,27 +128,29 @@ const App = () => {
       <div>
           <ReactFlowProvider>
               <div className='reactflow-wrapper'
-                   ref={reactFlowWrapper}
-                   style={{ height: '100svh', width: '100svw' }}>
-                  <ReactFlow
-                      nodes={nodes}
-                      edges={edges}
-                      defaultEdgeOptions={defaultEdgeOptions}
-                      onInit={setReactFlowInstance}
-                      onNodesChange={onNodesChange}
-                      onEdgesChange={onEdgesChange}
-                      onNodeClick={onNodeClick}
-                      onEdgeClick={onEdgeClick}
-                      onDragStart={onDragStart}
-                      onDragOver={onDragOver}
-                      onDrop={onDrop}
-                      onConnect={onConnect}
-                      onPaneClick={onPaneClick}
-                      defaultViewport={defaultViewport}
-                      minZoom={0.2}
-                      maxZoom={4}
-                      attributionPosition='bottom-left'
-                  >
+                   ref={reactFlowWrapper}>
+                  <div style={{height: '100vh', width: '100vw'}}>
+                      <RibbonWrapper home='Home'>
+                          <Ribbon name='Home'>
+                              <HomeRibbon
+                                  nodes={nodes}
+                                  setNodes={setNodes}
+                                  edges={edges}
+                                  setEdges={setEdges}
+                              />
+                          </Ribbon>
+                          <Ribbon name='Insert'>
+                              <InsertRibbon
+                                  onDragStart={onDragStart}
+                                  nodes={nodes}
+                                  setNodes={setNodes}
+                                  edges={edges}
+                                  setEdges={setEdges}
+                                  getId={getId}
+                                  reactFlowInstance={reactFlowInstance}
+                              />
+                          </Ribbon>
+                      </RibbonWrapper>
                       <PropertiesPanel
                           nodeLabel={selectedNodeLabel}
                           setNodeLabel={setSelectedNodeLabel}
@@ -156,17 +160,30 @@ const App = () => {
                           nodeBg={selectedNodeBg}
                           setNodeBg={setSelectedNodeBg}
                       />
-                      <InsertNodePanel
-                          onDragStart={onDragStart}
+                      <ReactFlow
                           nodes={nodes}
-                          setNodes={setNodes}
                           edges={edges}
-                          setEdges={setEdges}
-                      />
-                      <MiniMap className='bg-zinc-800' />
-                      <Background />
-                      <Controls />
-                  </ReactFlow>
+                          defaultEdgeOptions={defaultEdgeOptions}
+                          onInit={setReactFlowInstance}
+                          onNodesChange={onNodesChange}
+                          onEdgesChange={onEdgesChange}
+                          onNodeClick={onNodeClick}
+                          onEdgeClick={onEdgeClick}
+                          onDragStart={onDragStart}
+                          onDragOver={onDragOver}
+                          onDrop={onDrop}
+                          onConnect={onConnect}
+                          onPaneClick={onPaneClick}
+                          defaultViewport={defaultViewport}
+                          minZoom={0.2}
+                          maxZoom={4}
+                          attributionPosition='bottom-left'
+                      >
+                          <MiniMap className='bg-zinc-800' />
+                          <Background />
+                          <Controls />
+                      </ReactFlow>
+                  </div>
               </div>
           </ReactFlowProvider>
       </div>

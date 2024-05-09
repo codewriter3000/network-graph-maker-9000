@@ -6,7 +6,7 @@ export const uploadFile = (e) => {
 
     return new Promise((resolve) => {
         fileReader.onload = async (fileReaderEvent) => {
-            resolve(fileReaderEvent.target.result)
+            resolve([fileReaderEvent.target.result, e.target.files[0].name])
         }
     })
 }
