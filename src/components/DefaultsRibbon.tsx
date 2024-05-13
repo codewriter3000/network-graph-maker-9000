@@ -1,8 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const DefaultsRibbon = ({ defaultNodeBackgroundColor, defaultNodeForegroundColor }) => {
     return (
         <aside className='tab'>
             <div>
-                <label className='block'>Node Background Color:</label>
+                <label className='block'>Background Color:</label>
                 <input onChange={(evt) => {
                     if (evt.target.value.match(/^rgb\((\d+), (\d+), (\d+)\)$/)) {
                         defaultNodeBackgroundColor[1](evt.target.value)
@@ -12,7 +14,7 @@ const DefaultsRibbon = ({ defaultNodeBackgroundColor, defaultNodeForegroundColor
                 }} value={defaultNodeBackgroundColor[0]}/>
             </div>
             <div>
-                <label className='block'>Node Foreground Color:</label>
+                <label className='block'>Foreground Color:</label>
                 <input onChange={(evt) => {
                     if (evt.target.value.match(/^rgb\((\d+), (\d+), (\d+)\)$/)) {
                         defaultNodeForegroundColor[1](evt.target.value)

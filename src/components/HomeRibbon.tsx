@@ -1,9 +1,10 @@
-import { downloadFile } from '../util/download.js'
-import { uploadFile } from '../util/upload.js'
+import { downloadFile, uploadFile } from '../util'
 import { useState } from 'react'
+import { useReactFlow } from 'reactflow'
 
-const HomeRibbon = ({ nodes, edges, setNodes, setEdges }) => {
+const HomeRibbon = () => {
     const [fileName, setFileName] = useState('')
+    const { setNodes, setEdges, getNodes, getEdges } = useReactFlow()
 
     return (
         <aside className='tab'>
@@ -12,14 +13,14 @@ const HomeRibbon = ({ nodes, edges, setNodes, setEdges }) => {
                    onChange={(e) => setFileName(e.target.value)}
             />
             <div className='action-button' onClick={() => {
-                downloadFile(`${fileName}`, `{"nodes": ${JSON.stringify(nodes)},
-                 "edges": ${JSON.stringify(edges)}}`)
+                downloadFile(`${fileName}`, `{"nodes": ${JSON.stringify(getNodes())},
+                 "edges": ${JSON.stringify(getEdges())}}`)
             }}>
                 Download
             </div>
             <input type='file' className='action-button'
                    onChange={async(event) => {
-                       const [uploadedFile, fileName] = await uploadFile(event)
+                       const [uploadedFile, fileName]: any = await uploadFile(event)
                        const saveFileText = JSON.parse(uploadedFile)
                        setNodes(saveFileText.nodes)
                        setEdges(saveFileText.edges)

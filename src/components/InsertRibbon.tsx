@@ -1,13 +1,10 @@
-const InsertRibbon = ({ onDragStart, nodes, insertNode }) => {
+const InsertRibbon = ({ onDragStart, insertNode }: { onDragStart: any, insertNode: any }) => {
     return (
         <aside className='tab'>
             <div className='action-button'
                  onClick={() => insertNode()}
                  onDragStart={(event) => onDragStart(event, 'default')} draggable>
                 Insert Node
-            </div>
-            <div className='action-button debug' onClick={() => console.log(nodes)}>
-                Debug Nodes
             </div>
         </aside>
     )

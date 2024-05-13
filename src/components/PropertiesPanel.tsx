@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
-import { contrast } from '../util/contrastRatio.js'
+import { contrast } from '../util'
+import { useReactFlow } from 'reactflow'
 
-export const PropertiesPanel = ({ nodeLabel, setNodeLabel, setNodes, selectedItem, setSelectedItem,
-                                    nodeBg, setNodeBg, nodeFg, setNodeFg,
-                                    defaultNodeBg, defaultNodeFg}) => {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export const PropertiesPanel = ({ nodeLabel, setNodeLabel, selectedItem, setSelectedItem, nodeBg, setNodeBg, nodeFg, setNodeFg, defaultNodeBg, defaultNodeFg}) => {
+
+    const { setNodes } = useReactFlow()
 
     const [showLowContrastWarning, setShowLowContrastWarning] = useState(false)
 

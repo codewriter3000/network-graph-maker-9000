@@ -1,4 +1,4 @@
-import {useEffect, useCallback, useRef, useState} from 'react'
+import { useEffect, useCallback, useRef, useState } from 'react'
 import ReactFlow, {
     useNodesState,
     useEdgesState,
@@ -6,25 +6,26 @@ import ReactFlow, {
     addEdge,
     ReactFlowProvider,
     Background,
-    MarkerType, MiniMap
+    MarkerType,
+    MiniMap
 } from 'reactflow'
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 import 'reactflow/dist/style.css'
 import './index.css'
 
-import { PropertiesPanel } from './components/PropertiesPanel.jsx'
-import InsertRibbon from './components/InsertRibbon.jsx'
-import HomeRibbon from './components/HomeRibbon.jsx'
-import { Ribbon, RibbonWrapper } from './components/ribbon/index.js'
-import DefaultsRibbon from './components/DefaultsRibbon.jsx'
+import { PropertiesPanel } from './components/PropertiesPanel.tsx'
+import InsertRibbon from './components/InsertRibbon.tsx'
+import HomeRibbon from './components/HomeRibbon.tsx'
+import { Ribbon, RibbonWrapper } from './components/ribbon'
+import DefaultsRibbon from './components/DefaultsRibbon.tsx'
 
-const initialNodes = [
+const initialNodes: any[] = [
     // { id: '1', data: { label: '-' }, position: { x: 100, y: 100 } },
     // { id: '2', data: { label: 'Node 2' }, position: { x: 100, y: 200 } },
 ]
 
-const initialEdges = [
+const initialEdges: any[] = [
     // { id: 'e1-2', source: '1', target: '2' }
 ]
 const defaultViewport = {x: 0, y: 0, zoom: 1.5}
@@ -50,7 +51,7 @@ const App = () => {
         setSelectedNodeFg(selectedItem.foregroundColor)
     }, [selectedItem])
 
-    const onNodeClick = (event) => {
+    const onNodeClick = (event: any) => {
         event.preventDefault()
 
         const regex = '</div>([A-Za-z0-9: ]+)<div'
@@ -125,20 +126,11 @@ const App = () => {
                     <div style={{height: '100vh', width: '100vw'}}>
                         <RibbonWrapper home='Home'>
                             <Ribbon name='Home'>
-                                <HomeRibbon
-                                    nodes={nodes}
-                                    setNodes={setNodes}
-                                    edges={edges}
-                                    setEdges={setEdges}
-                                />
+                                <HomeRibbon />
                             </Ribbon>
                             <Ribbon name='Insert'>
                                 <InsertRibbon
                                     onDragStart={onDragStart}
-                                    nodes={nodes}
-                                    setNodes={setNodes}
-                                    edges={edges}
-                                    setEdges={setEdges}
                                     insertNode={insertNode}
                                 />
                             </Ribbon>
@@ -152,7 +144,6 @@ const App = () => {
                         <PropertiesPanel
                             nodeLabel={selectedNodeLabel}
                             setNodeLabel={setSelectedNodeLabel}
-                            setNodes={setNodes}
                             selectedItem={selectedItem}
                             setSelectedItem={setSelectedItem}
                             nodeBg={selectedNodeBg}
