@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef, useState } from 'react'
+import { useEffect, useCallback, useRef, useState, SyntheticEvent } from 'react'
 import ReactFlow, {
     useNodesState,
     useEdgesState,
@@ -10,6 +10,9 @@ import ReactFlow, {
     MiniMap
 } from 'reactflow'
 import { v4 as uuidv4 } from 'uuid'
+
+import useSelectedItems from './components/useSelectedItems.tsx'
+import Item from './util/item.ts'
 
 import 'reactflow/dist/style.css'
 import './index.css'
@@ -28,16 +31,23 @@ const initialNodes: any[] = [
 const initialEdges: any[] = [
     // { id: 'e1-2', source: '1', target: '2' }
 ]
-const defaultViewport = {x: 0, y: 0, zoom: 1.5}
+
+const defaultViewport = {
+    x: 0,
+    y: 0,
+    zoom: 1.5
+}
 
 const App = () => {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
-    const [selectedNodeLabel, setSelectedNodeLabel] = useState('')
-    const [selectedNodeBg, setSelectedNodeBg] = useState('')
-    const [selectedNodeFg, setSelectedNodeFg] = useState('')
-    const [selectedItem, setSelectedItem] = useState({id: '', label: '', backgroundColor: '', foregroundColor: ''})
+    const { addItem, removeItem, containsItem, removeAllItems } = useSelectedItems()
+
+    // const [selectedNodeLabel, setSelectedNodeLabel] = useState('')
+    // const [selectedNodeBg, setSelectedNodeBg] = useState('')
+    // const [selectedNodeFg, setSelectedNodeFg] = useState('')
+    // const [selectedItem, setSelectedItem] = useState({id: '', label: '', backgroundColor: '', foregroundColor: ''})
 
     const reactFlowWrapper = useRef(null)
     const [reactFlowInstance, setReactFlowInstance] = useState(null)
@@ -45,11 +55,11 @@ const App = () => {
     const defaultNodeBackgroundColor = useState('rgb(238, 238, 238)')
     const defaultNodeForegroundColor = useState('rgb(0, 0, 0)')
 
-    useEffect(() => {
-        setSelectedNodeLabel(selectedItem.label)
-        setSelectedNodeBg(selectedItem.backgroundColor)
-        setSelectedNodeFg(selectedItem.foregroundColor)
-    }, [selectedItem])
+    // useEffect(() => {
+    //     setSelectedNodeLabel(selectedItem.label)
+    //     setSelectedNodeBg(selectedItem.backgroundColor)
+    //     setSelectedNodeFg(selectedItem.foregroundColor)
+    // }, [selectedItem])
 
     const onNodeClick = (event: any) => {
         event.preventDefault()
@@ -57,37 +67,71 @@ const App = () => {
         const regex = '</div>([A-Za-z0-9: ]+)<div'
         const label = event.target.innerHTML.match(regex)?.[1] || ''
 
-        setSelectedItem({
+        const clickedNode: Item = {
             id: event.target.getAttribute('data-id'),
             label: label,
             backgroundColor: event.target.style.backgroundColor,
             foregroundColor: event.target.style.color,
-        })
+        }
+
+        console.log(`clickedNode: ${JSON.stringify(clickedNode)}`)
+
+        // setSelectedItem({
+        //     id: event.target.getAttribute('data-id'),
+        //     label: label,
+        //     backgroundColor: event.target.style.backgroundColor,
+        //     foregroundColor: event.target.style.color,
+        // })
+
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        // useSelectedItems(state => {
+        //     if (state.containsItem(clickedNode)) {
+        //         state.removeItem(clickedNode)
+        //     } else {
+        //         state.addItem(clickedNode)
+        //     }
+        // })
+
+        if (containsItem(clickedNode)) {
+            removeItem(clickedNode)
+            console.log('removed item')
+        } else {
+            addItem(clickedNode)
+            console.log('added item')
+        }
+
+        // setSelectedItem({
+        //     id: event.target.getAttribute('data-id'),
+        //     label: label,
+        //     backgroundColor: event.target.style.backgroundColor,
+        //     foregroundColor: event.target.style.color,
+        // })
     }
 
-    const onEdgeClick = (event) => {
+    const onEdgeClick = (event: SyntheticEvent) => {
         event.preventDefault()
 
         console.log(event.target)
     }
 
-    const onDragStart = (event, nodeType) => {
+    const onDragStart = (event: any, nodeType: any) => {
         event.dataTransfer.setData('application/reactflow', nodeType)
         event.dataTransfer.effectAllowed = 'move'
     }
 
     const onConnect = useCallback(
-        (params) => setEdges((eds) => addEdge(params, eds)),
+        (params: any) => setEdges((eds) => addEdge(params, eds)),
         [],
     )
 
-    const onDragOver = useCallback((event) => {
+    const onDragOver = useCallback((event: any) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = 'move';
     }, [])
 
     const onPaneClick = () => {
-        setSelectedItem({id: '', label: '', backgroundColor: '', foregroundColor: ''})
+        removeAllItems()
+        // setSelectedItem({id: '', label: '', backgroundColor: '', foregroundColor: ''})
     }
 
     const getId = () => uuidv4()
@@ -108,9 +152,18 @@ const App = () => {
                 color: defaultNodeForegroundColor[0],
             },
         }))
+
+        addItem({
+            id: nodeId,
+            label: 'Node',
+            backgroundColor: defaultNodeBackgroundColor[0],
+            foregroundColor: defaultNodeForegroundColor[0],
+        })
+
+        console.log('added item from insertNode')
     }
 
-    const onDrop = (evt) => insertNode({x: evt.clientX, y: evt.clientY})
+    const onDrop = (evt: any) => insertNode({x: evt.clientX, y: evt.clientY})
 
     const defaultEdgeOptions = {
         markerStart: {
@@ -142,14 +195,6 @@ const App = () => {
                             </Ribbon>
                         </RibbonWrapper>
                         <PropertiesPanel
-                            nodeLabel={selectedNodeLabel}
-                            setNodeLabel={setSelectedNodeLabel}
-                            selectedItem={selectedItem}
-                            setSelectedItem={setSelectedItem}
-                            nodeBg={selectedNodeBg}
-                            setNodeBg={setSelectedNodeBg}
-                            nodeFg={selectedNodeFg}
-                            setNodeFg={setSelectedNodeFg}
                             defaultNodeBg={defaultNodeBackgroundColor[0]}
                             defaultNodeFg={defaultNodeForegroundColor[0]}
                         />
