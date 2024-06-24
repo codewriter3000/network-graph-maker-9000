@@ -1,4 +1,4 @@
-const Ribbon = ({ name, children }) => {
+const Ribbon = ({ name, children }: { name: string, children: any }) => {
     return (
         <div>
             <div>

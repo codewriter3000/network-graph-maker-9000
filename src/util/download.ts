@@ -1,4 +1,4 @@
-export const downloadFile = (title, data) => {
+const downloadFile = (title: string, data: any) => { // eslint-disable-line
     const element = document.createElement('a')
     element.setAttribute(
         'href',
@@ -13,3 +13,5 @@ export const downloadFile = (title, data) => {
 
     document.body.removeChild(element)
 }
+
+export default downloadFile
