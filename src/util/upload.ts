@@ -8,7 +8,7 @@ const uploadFile = (e: any) => { // eslint-disable-line
         fileReader.onload = async (fileReaderEvent) => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            resolve([fileReaderEvent.target.result, e.target.files[0].name])
+            resolve([fileReaderEvent.target.result, e.target.files[0].name.split('.')[0]])
         }
     })
 }

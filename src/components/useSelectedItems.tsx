@@ -8,15 +8,16 @@ interface _ {
 const useSelectedItems = create((set: any, get: any) => ({
     selectedItems: [],
     addItem: (item: Item) => set((state: _) =>
-        ({ selectedItems: [...state.selectedItems, item] })),
+        ({ selectedItems: [...new Set([...state.selectedItems, item])]})),
     removeItem: (item: Item) => set((state: _) =>
         ({ selectedItems: [...state.selectedItems].filter(selectedItem => selectedItem !== item) })),
     removeAllItems: () => set(() =>
         ({ selectedItems: [] })),
     containsItem: (item: Item) => get((state: _) =>
         (state.selectedItems.includes(item))),
-    getLastItem: () => get(() =>
-        (get().selectedItems.slice(-1))),
+    getItems: () => get().selectedItems,
+    getLastItem: () => get((state: _) =>
+        (state.selectedItems[state.selectedItems.length - 1])),
     getLastId: () => get((state: _) =>
         (state.selectedItems[state.selectedItems.length - 1].id)),
     updateItemLabel: (id: string, newLabel: string) => set((state: _) => ({

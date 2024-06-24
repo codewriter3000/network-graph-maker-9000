@@ -4,7 +4,7 @@ const InsertRibbon = ({ onDragStart, insertNode }: { onDragStart: any, insertNod
             <div className='action-button'
                  onClick={() => insertNode()}
                  onDragStart={(event) => onDragStart(event, 'default')} draggable>
-                Insert Node
+                Drag or Click to Insert Node
             </div>
         </aside>
     )
